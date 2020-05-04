@@ -90,9 +90,9 @@
  reg = /^\\d$/
  reg.test('\\d')         //true  字符串'\d'也需要使用\进行转义
  ```
- #### `x|y`
+ #### `x|y``()`
  ```
- let reg = /18|27/
+ let reg = /^18|27$/     //满足18开头或27结尾任一就匹配了
  reg.test('18')          //true
  reg.test('27')          //true
  reg.test('182')         //true
@@ -100,4 +100,42 @@
  reg.test('1827')        //true
  reg.test('187')         //true
  reg.test('827')         //true
+ reg.test('17')          //false
+ reg.test('82')          //false
+
+ /* 直接x|y会存在很乱的优先级问题，一般都使用()进行分组，()会改变处理的优先级 */
+ let reg = /^(18|27)$/   //只能匹配18或者27中的一个了
+ reg.test('18')          //true
+ reg.test('27')          //true
+ reg.test('182')         //false
+ reg.test('127')         //false
+ reg.test('1827')        //false
+ reg.test('187')         //false
+ reg.test('827')         //false
+ ```
+ #### `[]`
+ ```
+ //1.中括号中出现的字符一般都代表本身的含义
+ let reg = /^[@+]$/    //字符‘@’或者字符‘+’中的一位
+ reg.test('@')         //true
+ reg.test('+')         //true
+ reg.test('@+')        //false
+
+ let reg = /^[10-29]$/  //代表1或者0或者2或者9
+ reg.test('1')       //true
+ reg.test('9')       //true
+ reg.test('10')      //false
+ reg.test('29')      //false
+ reg.test('0')       //true
+ reg.test('2')       //true
+ 
+ let reg = /^[\d]$/   //\d在中括号中还是代表0～9
+ reg.test('d')        //false
+ reg.test('\\')       //false
+
+ //2.中括号中不存在多位数
+ let reg = /^[18]$/
+ reg.test('1')       //true
+ reg.test('8')       //true
+ reg.test('18')      //false
  ```
