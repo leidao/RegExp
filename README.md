@@ -1,4 +1,8 @@
 # RegExp
+### 参考资料链接
+  > [正则表达式速查表](https://www.jb51.net/tools/regexsc.htm)
+  > [正则表达式在线测试](https://tool.oschina.net/regex/)
+  
  ### `正则表达式由两部分组成`
  - 元字符
  - 修饰符
