@@ -232,11 +232,16 @@
     reg.exec(str)     // ["05", index: 24, input: "ldx2020haohaoxuexi"]
 
     function execAll(reg,str){
+      if(!reg.global) {
+        throw Error('请使用全局匹配')
+        return;
+      }
       let value = reg.exec(str)
       let result = []
-       if(!!value){
-        result.push(value[0],...execAll(reg,str))
-       }
+      while(value){
+        result.push(value[0])
+        value = reg.exec(str)
+      }
        return result
     }
     console.log( execAll(reg,str))     //["2020", "2020", "05", "05"]
@@ -247,3 +252,16 @@
   > 第一次匹配捕获完成，lastIndex值没有改变，所以下一次exec依然从字符串最开始匹配，找到的永远是第一个匹配的  
   > 使用全局匹配g修饰符后，会自动修改lastIndex值，下次exec会从上一次捕获到字符串结尾下标位置开始匹配  
   > 当捕获不到内容后，捕获结果为null，会将lastIndex值设为0  
+   #### `match` 基于match实现正则的捕获
+   ```
+   let str = 'ldx2020haohaoxuexi-2020-05-05'
+   let reg = /\d+/
+   str.match(reg)             // ["2020", index: 3, input: "ldx2020haohaoxuexi-2020-05-05"]
+
+   全局匹配
+   let str = 'ldx2020haohaoxuexi-2020-05-05'
+   let reg = /\d+/g
+   str.match(reg)            // ["2020", "2020", "05", "05"]
+   ``` 
+   > match:
+   > 使用match进行全局匹配，可以捕获所有符合正则规则的字符
