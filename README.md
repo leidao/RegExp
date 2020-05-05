@@ -1,7 +1,7 @@
 # RegExp
 ### 参考资料链接
-  > [正则表达式速查表](https://www.jb51.net/tools/regexsc.htm)
-  > [正则表达式在线测试](https://tool.oschina.net/regex/)
+  > [正则表达式速查表](https://www.jb51.net/tools/regexsc.htm)  
+  > [正则表达式在线测试](https://tool.oschina.net/regex/)  
 
  ## `正则表达式由两部分组成`
  - 元字符
@@ -206,10 +206,10 @@
   ***
   ### 正则的捕获
   > 实现正则捕获的额方法
-  > - 正则RegExp.proptype上的方法
+  > - 正则RegExp.proptype上的方法  
   >   1.exec  
   >   2.test  
-  > - 字符串String.proptype上支持正则表达式处理的方法
+  > - 字符串String.proptype上支持正则表达式处理的方法  
   >   1.replace  
   >   2.match  
   >   3.splite  
