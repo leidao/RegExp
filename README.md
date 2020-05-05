@@ -205,7 +205,7 @@
   ```
   ***
   ### 正则的捕获
-  > 实现正则捕获的额方法
+  > 实现正则捕获的方法
   > - 正则RegExp.proptype上的方法  
   >   1.exec  
   >   2.test  
@@ -213,3 +213,28 @@
   >   1.replace  
   >   2.match  
   >   3.splite  
+  #### `exec` 基于exec实现正则的捕获
+  ```
+  let str = 'ldx2020haohaoxuexi-2020-05-05'
+  1.捕获到的结果是null或者一个数组
+    数组的第一项是本次捕获到的内容，如果有分组，则可以进行分组捕获
+    index: 当前捕获内容在字符串中的起始下标
+    input: 原始字符串
+    let reg = /\d+/
+    reg.exec(str)     // ["2020", index: 3, input: "ldx2020haohaoxuexi"]
+    reg.exec(str)     // ["2020", index: 3, input: "ldx2020haohaoxuexi"]
+    reg.exec(str)     // ["2020", index: 3, input: "ldx2020haohaoxuexi"]
+
+  2.每执行一次exec，只能捕获到一个符合正则规则的内容 => '正则捕获的懒惰性',需要进行全局匹配，才能捕获所有符合正则
+    的内容
+    let reg = /\d+/g
+    reg.exec(str)     // ["2020", index: 3, input: "ldx2020haohaoxuexi"]
+    reg.exec(str)     // ["2020", index: 19, input: "ldx2020haohaoxuexi"]
+    reg.exec(str)     // ["05", index: 24, input: "ldx2020haohaoxuexi"]
+  ```
+  > 懒惰性匹配的原因:
+  > reg.lastIndex  => 0  当前正则下次匹配的索引位置，默认值为0
+  > 默认情况下lastIndex不会被修改
+  > 第一次匹配捕获完成，lastIndex值没有改变，所以下一次exec依然从字符串最开始匹配，找到的永远是第一个匹配的
+  > 使用全局匹配g修饰符后，会自动修改lastIndex值，下次exec会从上一次捕获到字符串结尾下标位置开始匹配
+  > 当捕获不到内容后，捕获结果为null，会将lastIndex值设为0
